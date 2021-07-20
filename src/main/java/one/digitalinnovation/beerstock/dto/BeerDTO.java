@@ -22,11 +22,11 @@ public class BeerDTO {
 
     @NotNull
     @Size(min = 1, max = 200)
-    private String name;
+    private String nome;
 
     @NotNull
     @Size(min = 1, max = 200)
-    private String brand;
+    private String marca;
 
     @NotNull
     @Max(500)
@@ -34,7 +34,7 @@ public class BeerDTO {
 
     @NotNull
     @Max(100)
-    private Integer quantity;
+    private Integer quantidade;
 
     @Enumerated(EnumType.STRING)
     @NotNull

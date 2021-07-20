@@ -2,7 +2,7 @@ package one.digitalinnovation.beerstock.controller;
 
 import lombok.AllArgsConstructor;
 import one.digitalinnovation.beerstock.dto.BeerDTO;
-import one.digitalinnovation.beerstock.dto.QuantityDTO;
+import one.digitalinnovation.beerstock.dto.QuantidadeDTO;
 import one.digitalinnovation.beerstock.exception.BeerAlreadyRegisteredException;
 import one.digitalinnovation.beerstock.exception.BeerNotFoundException;
 import one.digitalinnovation.beerstock.exception.BeerStockExceededException;
@@ -36,8 +36,8 @@ public class BeerController implements BeerControllerDocs {
     }
     @Autowired
     @GetMapping("/{name}")
-    public BeerDTO findByName(@PathVariable String name) throws BeerNotFoundException {
-        return beerService.findByName(name);
+    public BeerDTO findByName(@PathVariable String nome) throws BeerNotFoundException {
+        return beerService.findByName(nome);
     }
     @Autowired
     @GetMapping
@@ -52,7 +52,7 @@ public class BeerController implements BeerControllerDocs {
     }
     @Autowired
     @PatchMapping("/{id}/increment")
-    public BeerDTO increment(@PathVariable Long id, @RequestBody @Valid QuantityDTO quantityDTO) throws BeerNotFoundException, BeerStockExceededException {
-        return beerService.increment(id, quantityDTO.getQuantity());
+    public BeerDTO increment(@PathVariable Long id, @RequestBody @Valid QuantidadeDTO quantidadeDTO) throws BeerNotFoundException, BeerStockExceededException {
+        return beerService.increment(id, quantidadeDTO.getQuantidade());
     }
 }

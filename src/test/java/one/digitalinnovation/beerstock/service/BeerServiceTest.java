@@ -51,15 +51,15 @@ public class BeerServiceTest {
         Beer expectedSavedBeer = beerMapper.toModel(expectedBeerDTO);
 
         // when
-        when(beerRepository.findByName(expectedBeerDTO.getName())).thenReturn(Optional.empty());
+        when(beerRepository.findByName(expectedBeerDTO.getNome())).thenReturn(Optional.empty());
         when(beerRepository.save(expectedSavedBeer)).thenReturn(expectedSavedBeer);
 
         //then
         BeerDTO createdBeerDTO = beerService.createBeer(expectedBeerDTO);
 
         assertThat(createdBeerDTO.getId(), is(equalTo(expectedBeerDTO.getId())));
-        assertThat(createdBeerDTO.getName(), is(equalTo(expectedBeerDTO.getName())));
-        assertThat(createdBeerDTO.getQuantity(), is(equalTo(expectedBeerDTO.getQuantity())));
+        assertThat(createdBeerDTO.getNome(), is(equalTo(expectedBeerDTO.getNome())));
+        assertThat(createdBeerDTO.getQuantidade(), is(equalTo(expectedBeerDTO.getQuantidade())));
     }
 
     @Test
@@ -69,7 +69,7 @@ public class BeerServiceTest {
         Beer duplicatedBeer = beerMapper.toModel(expectedBeerDTO);
 
         // when
-        when(beerRepository.findByName(expectedBeerDTO.getName())).thenReturn(Optional.of(duplicatedBeer));
+        when(beerRepository.findByName(expectedBeerDTO.getNome())).thenReturn(Optional.of(duplicatedBeer));
 
         // then
         assertThrows(BeerAlreadyRegisteredException.class, () -> beerService.createBeer(expectedBeerDTO));
@@ -85,7 +85,7 @@ public class BeerServiceTest {
         when(beerRepository.findByName(expectedFoundBeer.getNome())).thenReturn(Optional.of(expectedFoundBeer));
 
         // then
-        BeerDTO foundBeerDTO = beerService.findByName(expectedFoundBeerDTO.getName());
+        BeerDTO foundBeerDTO = beerService.findByName(expectedFoundBeerDTO.getNome());
 
         assertThat(foundBeerDTO, is(equalTo(expectedFoundBeerDTO)));
     }
@@ -96,10 +96,10 @@ public class BeerServiceTest {
         BeerDTO expectedFoundBeerDTO = BeerDTOBuilder.builder().build().toBeerDTO();
 
         // when
-        when(beerRepository.findByName(expectedFoundBeerDTO.getName())).thenReturn(Optional.empty());
+        when(beerRepository.findByName(expectedFoundBeerDTO.getNome())).thenReturn(Optional.empty());
 
         // then
-        assertThrows(BeerNotFoundException.class, () -> beerService.findByName(expectedFoundBeerDTO.getName()));
+        assertThrows(BeerNotFoundException.class, () -> beerService.findByName(expectedFoundBeerDTO.getNome()));
     }
 
     @Test
@@ -157,12 +157,12 @@ public class BeerServiceTest {
         when(beerRepository.save(expectedBeer)).thenReturn(expectedBeer);
 
         int quantityToIncrement = 10;
-        int expectedQuantityAfterIncrement = expectedBeerDTO.getQuantity() + quantityToIncrement;
+        int expectedQuantityAfterIncrement = expectedBeerDTO.getQuantidade() + quantityToIncrement;
 
         // then
         BeerDTO incrementedBeerDTO = beerService.increment(expectedBeerDTO.getId(), quantityToIncrement);
 
-        assertThat(expectedQuantityAfterIncrement, equalTo(incrementedBeerDTO.getQuantity()));
+        assertThat(expectedQuantityAfterIncrement, equalTo(incrementedBeerDTO.getQuantidade()));
         assertThat(expectedQuantityAfterIncrement, lessThan(expectedBeerDTO.getMax()));
     }
 
